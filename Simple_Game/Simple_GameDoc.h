@@ -3,12 +3,13 @@
 //
 
 #pragma once
-
+#include "Simple_Game_Board.h"
 
 class CSimple_GameDoc : public CDocument
 {
 protected: // create from serialization only
 	CSimple_GameDoc();
+	virtual ~CSimple_GameDoc();
 	DECLARE_DYNCREATE(CSimple_GameDoc)
 
 // Attributes

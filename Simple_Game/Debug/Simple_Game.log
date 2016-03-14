@@ -1,8 +1,0 @@
-﻿  stdafx.cpp
-  Simple_Game_Board.cpp
-d:\programação\github\simple_game\simple_game\simple_game_board.h(15): error C2065: 'm_nWidth' : undeclared identifier
-  Simple_GameView.cpp
-  Simple_GameDoc.cpp
-  Simple_Game.cpp
-  MainFrm.cpp
-  Generating Code...
