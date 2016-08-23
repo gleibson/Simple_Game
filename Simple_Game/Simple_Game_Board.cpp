@@ -62,10 +62,9 @@ void Simple_Game_Board::CreateBoard(void)
 	if (m_arrBoard != NULL) //If there is already a board, delete it
 		DeleteBoard();
 	m_arrBoard = new int*[m_nRows]; //Create the array of rows
-	for (int row = 0; row < m_nRows; row++); //Create each row
-	{
-		m_arrBoard[row] = new int[m_nColumns]; 
-		
+	for (int row = 0; row < m_nRows; row++) //Create each row
+	{	
+		m_arrBoard[row] = new int[m_nColumns];
 		for (int col = 0; col < m_nColumns; col++)//set each square to be empty
 			m_arrBoard[row][col] = 0;
 	}
