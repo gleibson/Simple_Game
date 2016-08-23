@@ -37,7 +37,7 @@ private:
 	int m_nColumns;
 	int m_nRows;
 	int m_nHeight;
-	int m_nnWidth;
+	int m_nWidth;
 
 };
 
