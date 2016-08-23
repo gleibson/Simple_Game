@@ -1,6 +1,6 @@
 
 // Simple_GameDoc.cpp : implementation of the CSimple_GameDoc class
-//
+//  To allow the view to access the board information via the document 
 
 #include "stdafx.h"
 #include "Simple_Game.h"
@@ -45,6 +45,8 @@ BOOL CSimple_GameDoc::OnNewDocument()
 	if (!CDocument::OnNewDocument())
 		return FALSE;
 
+	m_board.SetupBoard();
+    //	Set (or reset) the game board m_board.SetupBoard();
 	// TODO: add reinitialization code here
 	// (SDI documents will reuse this document)
 
@@ -138,3 +140,4 @@ void CSimple_GameDoc::Dump(CDumpContext& dc) const
 
 
 // CSimple_GameDoc commands
+/*  To allow the view to access the board information via the document */

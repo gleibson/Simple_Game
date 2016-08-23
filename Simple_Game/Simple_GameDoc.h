@@ -1,6 +1,6 @@
 
 // Simple_GameDoc.h : interface of the CSimple_GameDoc class
-//
+// Instance of the object game board encapsulated
 
 #pragma once
 #include "Simple_Game_Board.h"
@@ -17,7 +17,36 @@ public:
 
 // Operations
 public:
-
+	//function for accesing the game board
+	COLORREF GetBoardSpace(int row, int col)
+	{
+		return m_board.GetBoardSpace(row, col);
+		
+	}
+	void SetupBoard(void)
+	{
+		m_board.SetupBoard();
+	}
+	int GetWidth(void)
+	{
+		return m_board.GetWidth();
+	}
+	int GetHeight(void)
+	{
+		return m_board.GetHeight();
+    }
+	int GetColumns(void)
+	{
+		return m_board.GetColumns();
+	}
+	int GetRows(void)
+	{
+		return m_board.GetRows();
+	}
+	void DeleteBoard(void)
+	{
+		m_board.DeleteBoard();
+	}
 // Overrides
 public:
 	virtual BOOL OnNewDocument();
@@ -36,7 +65,8 @@ public:
 #endif
 
 protected:
-
+	//Instance of the game Board
+	Simple_Game_Board m_board;
 // Generated message map functions
 protected:
 	DECLARE_MESSAGE_MAP()

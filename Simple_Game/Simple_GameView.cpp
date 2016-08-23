@@ -46,13 +46,44 @@ BOOL CSimple_GameView::PreCreateWindow(CREATESTRUCT& cs)
 
 // CSimple_GameView drawing
 
-void CSimple_GameView::OnDraw(CDC* /*pDC*/)
+void CSimple_GameView::OnDraw(CDC* pDC)
 {
 	CSimple_GameDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
-
+	//Save the current satate of the device context
+	int nDCSave = pDC->SaveDC();
+	//Get the client rectangule
+	CRect rcClient;
+	GetClientRect(&rcClient);
+	// Get the background color of the board
+	COLORREF clr = pDoc->GetBoardSpace(-1, -1);
+	// Draw the background first
+	pDC->FillSolidRect(&rcClient, clr);
+	//Create the brush for drawing
+	CBrush br;
+	br.CreateStockObject(HOLLOW_BRUSH);
+	CBrush* pbrOld = pDC->SelectObject(&br);
+	//Draw the squares
+	for (int row = 0; row < pDoc->GetRows(); row++)
+	{
+		for (int col = 0; col < pDoc->GetColumns(); col++)
+		{	//Get the color for this board space
+			CRect rcBlock;
+			rcBlock.top = row * pDoc->GetHeight();
+			rcBlock.left = col* pDoc->GetWidth();
+			rcBlock.right = rcBlock.left + pDoc->GetWidth();
+			rcBlock.bottom = rcBlock.top + pDoc->GetHeight();
+			// Fill in the block with the correct color;
+			pDC->FillSolidRect(&rcBlock, clr);
+			//Draw the block outline
+			pDC->Rectangle(&rcBlock);
+		}
+	}
+	// Restore the device context settings
+	pDC->RestoreDC(nDCSave);
+	br.DeleteObject();
 	// TODO: add draw code for native data here
 }
 
@@ -76,6 +107,30 @@ CSimple_GameDoc* CSimple_GameView::GetDocument() const // non-debug version is i
 	return (CSimple_GameDoc*)m_pDocument;
 }
 #endif //_DEBUG
-
-
+void CSimple_GameView::OnInitialUpdate()
+{
+	CView::OnInitialUpdate;
+	//resize window
+	ResizeWindow();
+}
 // CSimple_GameView message handlers
+void CSimple_GameView::ResizeWindow()
+{
+	//First get a pointer to the document
+	CSimple_GameDoc* pDoc = GetDocument();
+	ASSERT_VALID(pDoc);
+	if (!pDoc)
+		return;
+	//Get the size of the client area and the window 
+	CRect rcClient, rcWindow;
+	GetClientRect(&rcClient);
+	GetParentFrame()->GetWindowRect(&rcWindow);
+	// Calculate the difference
+	int nWidthDiff = rcWindow.Width() - rcClient.Width();
+	int nHeightDiff = rcWindow.Height() - rcClient.Height();
+	// Change the Window size based on the size of the game board
+	rcWindow.right = rcWindow.left + pDoc->GetWidth() * pDoc->GetColumns() + nWidthDiff;
+	rcWindow.bottom = rcWindow.top + pDoc->GetHeight() * pDoc->GetRows() + nHeightDiff;
+	// The MoveWindow function resizes the frame window
+	GetParentFrame()->MoveWindow(&rcWindow);
+}

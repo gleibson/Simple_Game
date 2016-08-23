@@ -1,3 +1,7 @@
+/*
+implementation of the class Game Board
+*/
+
 #include "stdafx.h"
 #include "Simple_Game_Board.h"
 

@@ -1,3 +1,8 @@
+/*
+The class to represent the game board
+
+*/
+
 #pragma once
 class Simple_Game_Board
 {

@@ -26,6 +26,7 @@ protected:
 
 // Implementation
 public:
+	void ResizeWindow();
 	virtual ~CSimple_GameView();
 #ifdef _DEBUG
 	virtual void AssertValid() const;
